@@ -13,6 +13,7 @@
     <div id="root"></div>
     <script type='text/babel'>
       const { Component } = React;
+      //const API = 'https://acme-users-api-rev.herokuapp.com/api';
       const { render } = ReactDOM;
       const root = document.querySelector('#root');
 
@@ -28,27 +29,44 @@
           this.state = {
             user: '',
             start: 'Oct',
-            end: 'Nov'
+            end: 'Nov',
+            vacations: []
           };
         }
 
         async componentDidMount(){
           const user = await fetchUser();
+          const vacations = (await axios.get(`${API}/users/${user.id}/vacations`)).data;
           if (!user) {
             return null
           };
-          this.setState({user});
+          console.log('this.state', this.state)
+          this.setState({user, vacations});
         }
+
+        create = async() => {
+          const { user, start, end } = this.state;
+          console.log('user', user);
+          const payload = {
+            startDate: start,
+            endDate: end
+          };
+          const vacation = (await axios.post(`${API}/users/${user.id}/vacations`, payload)).data;
+          console.log('vacation', vacation)
+          this.setState({ vacations:[...this.state.vacations, vacation] });
+        }
+
         render(){
-          const {user, start, end} = this.state;
+          const {user, start, end, awesomeVacations} = this.state;
+          const { create } = this;
 
           return (
             <div>
               <h1> Acme Vacation Planner for {user.fullName} </h1>
               <form onSubmit={ ev => ev.preventDefault()}>
-                <div><input value={ start } onChange={ (ev)=> this.setState({ start: ev.target.value })} /></div>
+                <div><input id='startInput' value={ start } onChange={ (ev)=> this.setState({ start: ev.target.value })} /></div>
                 <div><input value={ end } onChange={ (ev)=> this.setState({ end: ev.target.value })} /></div>
-                <button>Create Vacation</button>
+                <button onClick={ create }>Create Vacation</button>
               </form>
               <hr />
               {vacationNotes(start, end)}
