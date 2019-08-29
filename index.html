@@ -16,13 +16,19 @@
       const { render } = ReactDOM;
       const root = document.querySelector('#root');
 
+      const vacationNotes = (start, end) => {
+        return (
+          <p> This is start: {start} and this is end: {end} </p>
+        )
+      }
+
       class App extends Component{
         constructor(){
           super();
           this.state = {
             user: '',
-            start: '',
-            end: ''
+            start: 'Oct',
+            end: 'Nov'
           };
         }
 
@@ -44,8 +50,9 @@
                 <div><input value={ end } onChange={ (ev)=> this.setState({ end: ev.target.value })} /></div>
                 <button>Create Vacation</button>
               </form>
-
               <hr />
+              {vacationNotes(start, end)}
+
             </div>
           );
         }
