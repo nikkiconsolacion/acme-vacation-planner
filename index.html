@@ -35,18 +35,17 @@
         }
         render(){
           const {user, start, end} = this.state;
-          //const text = '10/31/2019'
 
           return (
             <div>
-            <h1> Acme Vacation Planner for {user.fullName} </h1>
-            <form onSubmit={ ev => ev.preventDefault()}>
-              <div><input value={ start } onChange={ (ev)=> this.setState({ start: ev.target.value })} /></div>
-              <div><input value={ end } onChange={ (ev)=> this.setState({ end: ev.target.value })} /></div>
-              <button>Create Vacation</button>
-            </form>
+              <h1> Acme Vacation Planner for {user.fullName} </h1>
+              <form onSubmit={ ev => ev.preventDefault()}>
+                <div><input value={ start } onChange={ (ev)=> this.setState({ start: ev.target.value })} /></div>
+                <div><input value={ end } onChange={ (ev)=> this.setState({ end: ev.target.value })} /></div>
+                <button>Create Vacation</button>
+              </form>
 
-            <hr />
+              <hr />
             </div>
           );
         }
