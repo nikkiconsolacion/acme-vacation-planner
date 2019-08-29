@@ -9,6 +9,26 @@
     </style>
   </head>
   <body>
+    <div id="root"></div>
+    <script type='text/babel'>
+      const { Component } = React;
+      const { render } = ReactDOM;
+      const root = document.querySelector('#root');
 
+      class App extends Component{
+        constructor(){
+          super();
+          this.state = {
+
+          };
+        }
+        render(){
+          return (
+            <hr />
+          )
+        }
+      }
+      render(<App />, root);
+    </script>
   </body>
 </html>
